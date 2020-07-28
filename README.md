@@ -8,6 +8,12 @@ With sandbox account:
 npm test
 ```
 
+4111 1111 1111 1111
+12/21
+111
+[test CC values](https://developer.squareup.com/docs/testing/test-values)
+
+
 
 
 -----------------------------------
