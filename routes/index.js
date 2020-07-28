@@ -53,9 +53,7 @@ router.get("/", async (req, res, next) => {
 
   try {
     // Retrieves locations in order to display the store name
-    const {
-      locations
-    } = await locationApi.listLocations();
+    const { locations } = await locationApi.listLocations();
     // Get CatalogItem and CatalogImage object
     const catalogList = await catalogApi.listCatalog(opt);
     // Renders index view, with catalog and location information

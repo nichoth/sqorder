@@ -37,17 +37,24 @@ class CatalogList {
   populateItems(catalogList) {
     if (catalogList.objects) {
       // Separate out the CatalogImages and the CatalogItems
-      const catalogItemObjects = catalogList.objects.filter(
-        // In this example, we assume no item has more than one variation and we don't display any item that has no variation
-        obj => obj.type === "ITEM" && obj.item_data.variations && obj.item_data.variations.length > 0);
-      const catalogImageObjects = catalogList.objects.filter(obj => obj.type === "IMAGE");
+      const catalogItemObjects = catalogList.objects.filter(function (obj) {
+        // In this example, we assume no item has more than one variation
+        // and we don't display any item that has no variation
+          return (obj.type === 'ITEM' && obj.item_data.variations &&
+            obj.item_data.variations.length > 0)
+      })
+      const catalogImageObjects = catalogList.objects.filter(obj => {
+        return obj.type === "IMAGE"
+      })
 
-      // For a shorter look time, we will convert the array of CatalogImageObjects, into a map
-      // where the keys are the CatalogImageObjects ids and the value are the CatalogImageObjects
-      const catalogImageObjectsMap = catalogImageObjects.reduce((map, imageObject) => {
-        map[imageObject.id] = imageObject;
-        return map;
-      }, {});
+      // For a shorter look time, we will convert the array of
+      // CatalogImageObjects, into a map where the keys are the
+      // CatalogImageObjects ids and the value are the CatalogImageObjects
+      const catalogImageObjectsMap = catalogImageObjects
+        .reduce((map, imageObject) => {
+          map[imageObject.id] = imageObject;
+          return map;
+        }, {});
 
       // Reassigns this.items to be an array of CatalogItem instances
       this.items = catalogItemObjects.map(item => {
