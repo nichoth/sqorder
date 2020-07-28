@@ -2,6 +2,12 @@ Trying the order API
 
 https://developer.squareup.com/docs/orders-api/quick-start/step-2
 
+## start a dev server
+With sandbox account:
+```
+npm test
+```
+
 
 
 -----------------------------------

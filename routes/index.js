@@ -40,13 +40,15 @@ router.use("/order-confirmation", require("./order-confirmation"));
  * Matches: GET /
  *
  * Description:
- *  Retrieves list of locations and CatalogItems, then renders views/index.pug template.
+ *  Retrieves list of locations and CatalogItems,
+ *      then renders views/index.pug template.
  *  Note: In this example we only use the first location in the list.
  */
 router.get("/", async (req, res, next) => {
   // Set to retrieve ITEM and IMAGE CatalogObjects
   const opt = {
-    types: "ITEM,IMAGE", // To retrieve TAX or CATEGORY objects add them to types
+    // To retrieve TAX or CATEGORY objects add them to types
+    types: "ITEM,IMAGE"
   };
 
   try {
@@ -121,3 +123,4 @@ router.post("/create-order", async (req, res, next) => {
 });
 
 module.exports = router;
+

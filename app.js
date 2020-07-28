@@ -52,14 +52,18 @@ app.use(function (req, res, next) {
 
 // error handlers
 // For simplicity, we print all error information
-app.use(function (err, req, res, next) {
+app.use(function (err, req, res) {
   res.status(err.status || 500);
   res.render("error", {
     status: err.status,
     message: err.message,
-    // If it is a response error then format the JSON string, if not output the error
-    error: err.response ? JSON.stringify(JSON.parse(err.response.res.text), null, 4) : err.stack
+    // If it is a response error then format the JSON string,
+    // if not output the error
+    error: err.response ?
+      JSON.stringify(JSON.parse(err.response.res.text), null, 4) :
+      err.stack
   });
 });
 
 module.exports = app;
+

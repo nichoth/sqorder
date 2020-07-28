@@ -200,3 +200,4 @@ if (args[0] == "clear") {
 } else {
   console.log("Command not recognized. Please try again.");
 }
+
