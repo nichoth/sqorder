@@ -20,7 +20,8 @@ block append scripts
 block content
   div(class="products")
     each item in items
-      div(id=item.itemObjectId ,class='product',data-toggle="modal",data-target="#modal"+item.itemObjectId)
+      div(id=item.itemObjectId ,class='product',data-toggle="modal",
+        data-target="#modal"+item.itemObjectId)
         div(class='image-container',onclick="openModal(this)")
           img(class='product-image',src=item.imageUrl)
           div(class='image-overlay')

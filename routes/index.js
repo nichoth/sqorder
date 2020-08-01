@@ -46,10 +46,8 @@ router.use("/order-confirmation", require("./order-confirmation"));
  */
 router.get("/", async (req, res, next) => {
   // Set to retrieve ITEM and IMAGE CatalogObjects
-  const opt = {
-    // To retrieve TAX or CATEGORY objects add them to types
-    types: "ITEM,IMAGE"
-  };
+  // To retrieve TAX or CATEGORY objects add them to types
+  const opt = { types: "ITEM,IMAGE" };
 
   try {
     // Retrieves locations in order to display the store name
@@ -59,7 +57,9 @@ router.get("/", async (req, res, next) => {
     // Renders index view, with catalog and location information
     res.render("index", {
       items: new CatalogList(catalogList).items,
-      location_info: new LocationInfo(locations[0]), // take the first location for the sake of simplicity.
+
+      // take the first location for the sake of simplicity.
+      location_info: new LocationInfo(locations[0]), 
     });
   } catch (error) {
     next(error);
@@ -70,11 +70,14 @@ router.get("/", async (req, res, next) => {
  * Matches: POST /create-order
  *
  * Description:
- *  Creates an order for a single item variation, this method kicks off the checkout workflow.
- *  Learn more about Orders here: https://developer.squareup.com/docs/orders-api/what-it-does
+ *  Creates an order for a single item variation, this method kicks off the
+ *  checkout workflow.
+ *  Learn more about Orders
+ *  here: https://developer.squareup.com/docs/orders-api/what-it-does
  *
- *  This method currently only takes one item to checkout, you can potentially pass multiple
- *  items to create an order and then proceed with the checkout process.
+ *  This method currently only takes one item to checkout,
+  *  you can potentially pass multiple items to create an order and then
+  *  proceed with the checkout process.
  *
  * Request Body:
  *  item_var_id: Id of the CatalogItem which will be purchased
@@ -90,7 +93,8 @@ router.post("/create-order", async (req, res, next) => {
   } = req.body;
   try {
     const orderRequestBody = {
-      idempotency_key: randomBytes(45).toString("hex"), // Unique identifier for request
+      // Unique identifier for request
+      idempotency_key: randomBytes(45).toString("hex"),
       order: {
         line_items: [{
           quantity: item_quantity,
@@ -99,10 +103,13 @@ router.post("/create-order", async (req, res, next) => {
       }
     };
     // Apply the taxes that's related to this catalog item.
-    // Order API doesn't calculate the tax automatically even if you have apply the tax to the catalog item
+    // Order API doesn't calculate the tax automatically even if you have
+    // apply the tax to the catalog item
     // You must add the tax yourself when create order.
     const catalogItem = await catalogApi.retrieveCatalogObject(item_id);
-    if (!!catalogItem.object.item_data.tax_ids && catalogItem.object.item_data.tax_ids.length > 0) {
+    var hasTaxIds = (!!catalogItem.object.item_data.tax_ids &&
+      catalogItem.object.item_data.tax_ids.length > 0)
+    if (hasTaxIds) {
       orderRequestBody.order.taxes = [];
       for (let i = 0; i < catalogItem.object.item_data.tax_ids.length; i++) {
         orderRequestBody.order.taxes.push({

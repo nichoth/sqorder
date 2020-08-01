@@ -24,12 +24,14 @@ const CatalogItem = require("./catalog-item");
  * Parameters:
  *  catalogList:  Array of Catalog objects returned from ListCatalog api
  *
- * Learn more about the ListCatalog api here: https://developer.squareup.com/reference/square/catalog-api/list-catalog
+ * Learn more about the ListCatalog api here:
+ * https://developer.squareup.com/reference/square/catalog-api/list-catalog
  *
  */
 class CatalogList {
   constructor(catalogList) {
-    // Array of items, we are using the default variation as our only choice for the item
+    // Array of items, we are using the default variation as our only choice
+    // for the item
     this.items = [];
     this.populateItems(catalogList);
   }
@@ -59,6 +61,7 @@ class CatalogList {
       // Reassigns this.items to be an array of CatalogItem instances
       this.items = catalogItemObjects.map(item => {
         const imageObject = catalogImageObjectsMap[item.image_id];
+        //image_id
         return new CatalogItem(item, imageObject);
       });
     }

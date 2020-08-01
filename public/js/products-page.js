@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-function openModal(element) {
+function openModal (element) {
   // Changes hash which triggers which item's modal is on display
   showModal("modal-" + element.parentElement.id);
   window.history.pushState(null, null, `#${element.parentElement.id}`);
@@ -32,6 +32,7 @@ function showModal(id) {
     closeModal(); // Closes already open modal when invalid hash is used.
   }
 }
+
 function closeModal() {
   const modal = document.querySelector(".modal.is-open"); // Finds open modal element
 
@@ -43,12 +44,15 @@ function closeModal() {
     document.getElementById("veil").classList.remove("visible");
   }
 }
+
 function onCloseModalClick() {
   // Closes modal
   closeModal();
   // Changes url after closing modal
   window.history.pushState(null, null, "/");
 }
+
+// called when the page first loads to show the right product
 function onUrlChange() {
   // function is called whenever there is a change to URL
   const itemId = location.hash.slice(1);
@@ -59,10 +63,11 @@ function onUrlChange() {
     closeModal(); // If no hash exists close the modal
   }
 }
+
 window.onpopstate = onUrlChange;
 window.onload = onUrlChange;
 window.onclick = function (element) {
   if (element.srcElement.id === "veil" && location.hash.length > 1) {
     closeModal();
   }
-};
+}

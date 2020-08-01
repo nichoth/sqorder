@@ -48,19 +48,20 @@ class CatalogItem {
   }
   // Returns associated image url for CatalogObject
   get imageUrl() {
-    return this.catalogImageObj && this.catalogImageObj.image_data && this.catalogImageObj.image_data.url;
+    return (this.catalogImageObj && this.catalogImageObj.image_data &&
+      this.catalogImageObj.image_data.url)
   }
   // Returns price in dollars
   get price() {
-    const {
-      price_money
-    } = this.defaultVariation.item_variation_data;
+    const { price_money } = this.defaultVariation.item_variation_data;
     // item price money can be undefined, then we default to 0.00
     return price_money ? `${(price_money.amount/100).toFixed(2)}` : 0.00;
   }
-  // Returns the first variation in the variations array, our example we are selling one version of the item
+  // Returns the first variation in the variations array, our example we
+  // are selling one version of the item
   get defaultVariation() {
-    // We don't have to check invalid item_data because we've filtered them out when initialize.
+    // We don't have to check invalid item_data because we've filtered
+    // them out when initialize.
     return this.catalogItemObj.item_data.variations[0];
   }
 }
