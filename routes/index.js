@@ -118,9 +118,7 @@ router.post("/create-order", async (req, res, next) => {
         });
       }
     }
-    const {
-      order
-    } = await orderApi.createOrder(location_id, orderRequestBody);
+    const { order } = await orderApi.createOrder(location_id, orderRequestBody);
     res.redirect(`/checkout/choose-delivery-pickup?order_id=${order.id}&location_id=${location_id}`);
   } catch (error) {
     next(error);
@@ -128,4 +126,3 @@ router.post("/create-order", async (req, res, next) => {
 });
 
 module.exports = router;
-

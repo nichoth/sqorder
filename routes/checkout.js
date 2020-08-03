@@ -52,10 +52,8 @@ router.get("/choose-delivery-pickup", async (req, res, next) => {
     const {
       order_info,
       location_info
-    } = await retrieveOrderAndLocation(
-      order_id,
-      location_id
-    );
+    } = await retrieveOrderAndLocation(order_id, location_id);
+
     res.render("checkout/choose-delivery-pickup", {
       location_info,
       order_info,
@@ -360,19 +358,13 @@ router.post("/add-delivery-details", async (req, res, next) => {
  *  location_id: Id of the location that the order belongs to
  */
 router.get("/payment", async (req, res, next) => {
-  const {
-    order_id,
-    location_id,
-    loyalty_account_id
-  } = req.query;
+  const { order_id, location_id, loyalty_account_id } = req.query;
   try {
     const {
       order_info,
       location_info
-    } = await retrieveOrderAndLocation(
-      order_id,
-      location_id
-    );
+    } = await retrieveOrderAndLocation(order_id, location_id);
+
     if (!order_info.hasFulfillments) {
       // if the order doesn't have any fulfillment informaiton, fallback to previous step to collect fulfillment information
       res.redirect(
