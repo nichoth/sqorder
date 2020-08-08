@@ -16,9 +16,7 @@ limitations under the License.
 
 const express = require("express");
 const url = require("url");
-const {
-  randomBytes
-} = require("crypto");
+const { randomBytes } = require("crypto");
 const {
   config,
   retrieveOrderAndLocation,
