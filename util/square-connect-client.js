@@ -37,7 +37,8 @@ const loyaltyApi = new SquareConnect.LoyaltyApi();
 
 /**
  * Description:
- * Retrieve the order and location informaiton that are widely used in many pages in this example.
+ * Retrieve the order and location informaiton that are widely used in many
+ * pages in this example.
  *
  * @param {*} order_id The id of the order
  * @param {*} location_id The id of the location where the order belongs to

@@ -366,21 +366,24 @@ router.get("/payment", async (req, res, next) => {
     } = await retrieveOrderAndLocation(order_id, location_id);
 
     if (!order_info.hasFulfillments) {
-      // if the order doesn't have any fulfillment informaiton, fallback to previous step to collect fulfillment information
+      // if the order doesn't have any fulfillment informaiton,
+      // fallback to previous step to collect fulfillment information
       res.redirect(
         `/checkout/choose-delivery-pickup?order_id=${order_id}&location_id=${location_id}`
       );
     }
 
     // collect loyalty account and reward tiers information so that the page can render reward options for customer to choose
-    const loyalty_reward_info = await getLoyaltyRewardInformation(order_info, loyalty_account_id);
+    const loyalty_reward_info =
+      await getLoyaltyRewardInformation(order_info, loyalty_account_id);
 
     res.render("checkout/payment", {
       application_id: config.squareApplicationId,
       order_info,
       location_info,
       loyalty_reward_info,
-      idempotency_key: randomBytes(45).toString("hex").slice(0, 45), // Payments api has 45 max length limit on idempotency_key
+      // Payments api has 45 max length limit on idempotency_key
+      idempotency_key: randomBytes(45).toString("hex").slice(0, 45),
     });
   } catch (error) {
     next(error);
